@@ -1,0 +1,114 @@
+[gd_scene load_steps=4 format=3 uid="uid://intro01"]
+
+[ext_resource type="Script" path="res://scripts/intro_cutscene.gd" id="1_intro"]
+[ext_resource type="PackedScene" uid="uid://dpeuy7bmijvxg" path="res://scenes/airplane_cabin.tscn" id="2_cabin"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dialogue"]
+content_margin_left = 20.0
+content_margin_top = 14.0
+content_margin_right = 20.0
+content_margin_bottom = 14.0
+bg_color = Color(0.02, 0.02, 0.04, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.45, 0.45, 0.5, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="IntroCutscene" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0)
+script = ExtResource("1_intro")
+
+[node name="AirplaneCabin" parent="." instance=ExtResource("2_cabin")]
+
+[node name="SeatPivot" type="Node3D" parent="."]
+
+[node name="Head" type="Node3D" parent="SeatPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.22, -0.14)
+
+[node name="ShakePivot" type="Node3D" parent="SeatPivot/Head"]
+
+[node name="IntroCamera" type="Camera3D" parent="SeatPivot/Head/ShakePivot"]
+fov = 72.0
+near = 0.05
+far = 40.0
+current = false
+
+[node name="DialogueUI" type="CanvasLayer" parent="."]
+
+[node name="FadeRect" type="ColorRect" parent="DialogueUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="EpilogueLabel" type="Label" parent="DialogueUI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -60.0
+offset_right = 400.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.92, 0.9, 0.86, 1)
+theme_override_font_sizes/font_size = 26
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="DialoguePanel" type="PanelContainer" parent="DialogueUI"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = -120.0
+offset_right = 420.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dialogue")
+
+[node name="MarginContainer" type="MarginContainer" parent="DialogueUI/DialoguePanel"]
+layout_mode = 2
+
+[node name="DialogueLabel" type="Label" parent="DialogueUI/DialoguePanel/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 0.9, 1)
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="SkipHint" type="PanelContainer" parent="DialogueUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -168.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 58.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dialogue")
+
+[node name="SkipLabel" type="Label" parent="DialogueUI/SkipHint"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.9, 0.86, 1)
+theme_override_font_sizes/font_size = 16
+text = "press G to skip"
+horizontal_alignment = 2

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://d376y6fbfe03y"]
+
+[ext_resource type="Script" path="res://scripts/crashed_plane.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://b2i7v3h6dc3g1" path="res://assets/Crashed plane/dc3_plane_wreckage_on_iceland_4.glb" id="2_plane"]
+
+[node name="CrashedPlane" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Model" parent="." instance=ExtResource("2_plane")]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkbmwghf1bkec"]
+
+[ext_resource type="PackedScene" path="res://scenes/seated_rig_passenger.tscn" id="1_seated"]
+[ext_resource type="PackedScene" path="res://assets/kenney_animated-characters-retro/Model/characterMedium.fbx" id="2_character"]
+[ext_resource type="PackedScene" path="res://assets/kenney_animated-characters-retro/Animations/idle.fbx" id="3_idle"]
+[ext_resource type="Texture2D" path="res://assets/kenney_animated-characters-retro/Skins/humanFemaleA.png" id="4_skin"]
+
+[node name="KenneyPassengerFemale" instance=ExtResource("1_seated")]
+rig_scene = ExtResource("2_character")
+model_scale = 0.45
+facing_yaw_degrees = 180.0
+seat_forward = 0.05
+seat_offset = Vector3(0.04, 0, 0.03)
+target_eye_height = 1.08
+skin_texture = ExtResource("4_skin")
+idle_animation_scene = ExtResource("3_idle")

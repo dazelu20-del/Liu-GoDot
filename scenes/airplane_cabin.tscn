@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://dpeuy7bmijvxg"]
+
+[ext_resource type="Script" path="res://scripts/airplane_cabin.gd" id="1_cabin"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wall"]
+albedo_color = Color(0.74, 0.74, 0.78, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
+albedo_color = Color(0.3, 0.3, 0.34, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aisle"]
+albedo_color = Color(0.42, 0.4, 0.38, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_floor"]
+size = Vector3(4.2, 0.1, 9.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall"]
+size = Vector3(0.1, 2.35, 9.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ceiling"]
+size = Vector3(4.2, 0.1, 9.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_aisle"]
+size = Vector3(0.72, 0.02, 9.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bin"]
+size = Vector3(0.42, 0.32, 8.4)
+
+[node name="AirplaneCabin" type="Node3D"]
+script = ExtResource("1_cabin")
+
+[node name="Shell" type="Node3D" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -1.6)
+mesh = SubResource("BoxMesh_floor")
+surface_material_override/0 = SubResource("StandardMaterial3D_floor")
+
+[node name="AisleCarpet" type="MeshInstance3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11, -1.6)
+mesh = SubResource("BoxMesh_aisle")
+surface_material_override/0 = SubResource("StandardMaterial3D_aisle")
+
+[node name="LeftWall" type="MeshInstance3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.05, 1.2, -1.6)
+mesh = SubResource("BoxMesh_wall")
+surface_material_override/0 = SubResource("StandardMaterial3D_wall")
+
+[node name="RightWall" type="MeshInstance3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.05, 1.2, -1.6)
+mesh = SubResource("BoxMesh_wall")
+surface_material_override/0 = SubResource("StandardMaterial3D_wall")
+
+[node name="Ceiling" type="MeshInstance3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.38, -1.6)
+mesh = SubResource("BoxMesh_ceiling")
+surface_material_override/0 = SubResource("StandardMaterial3D_wall")
+
+[node name="CeilingChannel" type="MeshInstance3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.18, -1.6)
+mesh = SubResource("BoxMesh_aisle")
+surface_material_override/0 = SubResource("StandardMaterial3D_wall")
+
+[node name="LeftOverheadBin" type="MeshInstance3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.45, 2.02, -1.6)
+mesh = SubResource("BoxMesh_bin")
+surface_material_override/0 = SubResource("StandardMaterial3D_wall")
+
+[node name="RightOverheadBin" type="MeshInstance3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45, 2.02, -1.6)
+mesh = SubResource("BoxMesh_bin")
+surface_material_override/0 = SubResource("StandardMaterial3D_wall")
+
+[node name="Seats" type="Node3D" parent="."]
+
+[node name="Windows" type="Node3D" parent="."]
+
+[node name="Passengers" type="Node3D" parent="."]
+
+[node name="CabinLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, -1.0)
+light_color = Color(1, 0.96, 0.9, 1)
+light_energy = 1.2
+omni_range = 10.0
+
+[node name="AisleLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0, -2.5)
+light_color = Color(1, 0.98, 0.94, 1)
+light_energy = 0.7
+omni_range = 8.0

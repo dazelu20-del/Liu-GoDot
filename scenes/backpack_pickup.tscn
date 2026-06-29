@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ctnw4k1n4i0xg"]
+
+[ext_resource type="Script" path="res://scripts/backpack_pickup.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://cgd2gx5vfk17" path="res://assets/Backpack/backpack.glb" id="2_model"]
+[ext_resource type="PackedScene" uid="uid://dt408xqjjyuwf" path="res://assets/Starter axe/tactical_axe.glb" id="3_axe"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_area"]
+radius = 2.2
+
+[node name="BackpackPickup" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Model" parent="." instance=ExtResource("2_model")]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, 0.05, 0)
+
+[node name="AxeModel" parent="." instance=ExtResource("3_axe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="InteractionArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 1
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+shape = SubResource("SphereShape3D_area")

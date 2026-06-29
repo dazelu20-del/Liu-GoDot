@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://main01"]
+
+[ext_resource type="Script" uid="uid://dmt5kg25n1hvl" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="PackedScene" uid="uid://baseplate01" path="res://scenes/baseplate.tscn" id="2_baseplate"]
+[ext_resource type="PackedScene" uid="uid://player01" path="res://scenes/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" uid="uid://mainmenu01" path="res://scenes/main_menu.tscn" id="4_menu"]
+[ext_resource type="PackedScene" uid="uid://pausemenu01" path="res://scenes/pause_menu.tscn" id="5_pause"]
+[ext_resource type="PackedScene" uid="uid://intro01" path="res://scenes/intro_cutscene.tscn" id="6_intro"]
+[ext_resource type="PackedScene" uid="uid://de5e5nlk71uyy" path="res://scenes/survival_hud.tscn" id="7_hud"]
+[ext_resource type="PackedScene" uid="uid://d376y6fbfe03y" path="res://scenes/crashed_plane.tscn" id="8_plane"]
+[ext_resource type="PackedScene" uid="uid://dql4rkok83ho7" path="res://scenes/inventory_hud.tscn" id="9_inventory"]
+[ext_resource type="PackedScene" uid="uid://staminahud01" path="res://scenes/stamina_hud.tscn" id="10_stamina"]
+[ext_resource type="PackedScene" uid="uid://c8cv1as4t6dxo" path="res://scenes/interaction_prompt.tscn" id="11_prompt"]
+[ext_resource type="PackedScene" uid="uid://p0ar48vabkxk" path="res://scenes/notification_hud.tscn" id="12_notify"]
+[ext_resource type="PackedScene" uid="uid://backpackui01" path="res://scenes/backpack_ui.tscn" id="13_backpack"]
+[ext_resource type="PackedScene" uid="uid://ctnw4k1n4i0xg" path="res://scenes/backpack_pickup.tscn" id="15_backpack_pickup"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_sky"]
+mie_coefficient = 0.004
+ground_color = Color(0.28, 0.38, 0.22, 1)
+energy_multiplier = 1.1
+
+[sub_resource type="Sky" id="Sky_main"]
+sky_material = SubResource("PhysicalSkyMaterial_sky")
+
+[sub_resource type="Environment" id="Environment_main"]
+background_mode = 2
+sky = SubResource("Sky_main")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.7
+tonemap_mode = 2
+tonemap_exposure = 1.05
+ssao_enabled = true
+ssao_radius = 1.5
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.78, 0.86, 0.96, 1)
+fog_density = 0.00035
+fog_sky_affect = 0.6
+fog_depth_begin = 80.0
+fog_depth_end = 2800.0
+
+[node name="Main" type="Node3D" unique_id=1970318432]
+script = ExtResource("1_main")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1718630915]
+environment = SubResource("Environment_main")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=195913426]
+transform = Transform3D(0.819152, -0.40558, 0.40558, 0, 0.707107, 0.707107, -0.573576, -0.579228, 0.579228, 0, 20, 0)
+light_color = Color(1, 0.94, 0.82, 1)
+light_energy = 1.4
+shadow_enabled = true
+directional_shadow_max_distance = 320.0
+
+[node name="GameWorld" type="Node3D" parent="." unique_id=333747619]
+
+[node name="Baseplate" parent="GameWorld" unique_id=1363165259 instance=ExtResource("2_baseplate")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0072484016, 0.019516945, -0.00036096573)
+
+[node name="Player" parent="GameWorld" unique_id=1626237148 instance=ExtResource("3_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CrashedPlane" parent="GameWorld" unique_id=1784117962 instance=ExtResource("8_plane")]
+transform = Transform3D(0.819152, 0, 0.573576, 0, 1, 0, -0.573576, 0, 0.819152, 8, -0.25505173, -5)
+ground_clearance = -1.0
+
+[node name="BackpackPickup" parent="GameWorld" unique_id=954151912 instance=ExtResource("15_backpack_pickup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, -3.2)
+
+[node name="IntroCutscene" parent="." unique_id=567014045 instance=ExtResource("6_intro")]
+
+[node name="MainMenu" parent="." unique_id=1350940331 instance=ExtResource("4_menu")]
+
+[node name="PauseMenu" parent="." unique_id=246977508 instance=ExtResource("5_pause")]
+
+[node name="SurvivalHUD" parent="." unique_id=1480348572 instance=ExtResource("7_hud")]
+
+[node name="InventoryHUD" parent="." unique_id=670517588 instance=ExtResource("9_inventory")]
+
+[node name="StaminaHUD" parent="." unique_id=1758021191 instance=ExtResource("10_stamina")]
+
+[node name="InteractionPrompt" parent="." unique_id=65779988 instance=ExtResource("11_prompt")]
+
+[node name="NotificationHUD" parent="." unique_id=1593460341 instance=ExtResource("12_notify")]
+
+[node name="BackpackUI" parent="." unique_id=623972540 instance=ExtResource("13_backpack")]
