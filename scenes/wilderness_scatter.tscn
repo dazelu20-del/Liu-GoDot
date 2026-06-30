@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c6j0t1ok0ee77"]
+
+[ext_resource type="Script" path="res://scripts/wilderness_scatter.gd" id="1_scatter"]
+
+[node name="WildernessScatter" type="Node3D"]
+script = ExtResource("1_scatter")

@@ -26,6 +26,7 @@ var can_control := false
 func enable_control() -> void:
 	can_control = true
 	camera.current = true
+	camera.add_to_group("player_camera")
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
@@ -54,7 +55,8 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and SurvivalStats.can_jump():
+		SurvivalStats.spend_stamina_on_jump()
 		velocity.y = JUMP_VELOCITY
 
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")

@@ -30,7 +30,12 @@ func _on_stamina_changed(stamina: float, sprinting: bool) -> void:
 	_bar.value = stamina
 	_label.text = "Stamina  %d" % int(roundf(stamina))
 
-	var should_show := sprinting or stamina < FULL_THRESHOLD or SurvivalStats.exhausted
+	var should_show := (
+		sprinting
+		or stamina < FULL_THRESHOLD
+		or SurvivalStats.exhausted
+		or SurvivalStats.is_stamina_active()
+	)
 	if should_show:
 		if not is_visible() or _panel.modulate.a < 0.99:
 			_fading_out = false

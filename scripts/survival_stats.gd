@@ -13,7 +13,9 @@ const THIRST_SPRINT_BONUS_PER_SEC := 0.085
 # ~17 sec of continuous sprint; ~10 sec to recover from empty
 const STAMINA_DRAIN_SPRINT := 6.0
 const STAMINA_REGEN_PER_SEC := 10.0
+const STAMINA_COST_JUMP := 12.0
 const EXHAUSTION_DURATION := 5.0
+const STAMINA_ACTIVITY_FLASH := 1.2
 
 var health := MAX_STAT
 var hunger := MAX_STAT
@@ -24,6 +26,7 @@ var exhausted := false
 
 var _sprinting := false
 var _exhaustion_time_left := 0.0
+var _activity_flash_left := 0.0
 
 
 func reset() -> void:
@@ -35,6 +38,7 @@ func reset() -> void:
 	_sprinting = false
 	exhausted = false
 	_exhaustion_time_left = 0.0
+	_activity_flash_left = 0.0
 	stats_changed.emit(health, hunger, thirst)
 	stamina_changed.emit(stamina, false)
 
@@ -48,6 +52,7 @@ func start() -> void:
 	_sprinting = false
 	exhausted = false
 	_exhaustion_time_left = 0.0
+	_activity_flash_left = 0.0
 	stats_changed.emit(health, hunger, thirst)
 	stamina_changed.emit(stamina, false)
 
@@ -59,6 +64,26 @@ func stop() -> void:
 
 func can_sprint() -> bool:
 	return not exhausted and stamina > 0.0
+
+
+func can_jump() -> bool:
+	return not exhausted
+
+
+func spend_stamina_on_jump() -> void:
+	if not active or exhausted:
+		return
+
+	var prev_stamina := stamina
+	stamina = maxf(stamina - STAMINA_COST_JUMP, 0.0)
+	_activity_flash_left = STAMINA_ACTIVITY_FLASH
+	if stamina <= 0.0 and prev_stamina > 0.0:
+		_begin_exhaustion()
+	stamina_changed.emit(stamina, _sprinting)
+
+
+func is_stamina_active() -> bool:
+	return _activity_flash_left > 0.0
 
 
 func set_sprinting(sprinting: bool) -> void:
@@ -78,6 +103,9 @@ func _begin_exhaustion() -> void:
 func _process(delta: float) -> void:
 	if not active:
 		return
+
+	if _activity_flash_left > 0.0:
+		_activity_flash_left = maxf(_activity_flash_left - delta, 0.0)
 
 	var thirst_drain := SURVIVAL_DRAIN_PER_SEC
 	if _sprinting:

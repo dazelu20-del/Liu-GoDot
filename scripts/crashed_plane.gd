@@ -8,9 +8,15 @@ extends Node3D
 
 @onready var model: Node3D = $Model
 
+var _collision_body: StaticBody3D
+
 
 func _ready() -> void:
 	await get_tree().process_frame
+	_finalize_placement()
+
+
+func _finalize_placement() -> void:
 	_normalize_scale()
 	_snap_to_ground()
 	position.y = ground_height + ground_clearance
@@ -18,9 +24,14 @@ func _ready() -> void:
 
 
 func _build_collision() -> void:
+	if _collision_body and is_instance_valid(_collision_body):
+		_collision_body.queue_free()
+		_collision_body = null
+
 	var body := StaticBody3D.new()
 	body.name = "CollisionBody"
 	add_child(body)
+	_collision_body = body
 
 	for mesh_inst: MeshInstance3D in _find_mesh_instances(model):
 		var mesh: Mesh = mesh_inst.mesh

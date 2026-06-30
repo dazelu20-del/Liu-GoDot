@@ -2,6 +2,7 @@ extends Node3D
 
 @onready var player: CharacterBody3D = $GameWorld/Player
 @onready var game_world: Node3D = $GameWorld
+@onready var wilderness_scatter: Node3D = $GameWorld/WildernessScatter
 @onready var main_menu: CanvasLayer = $MainMenu
 @onready var pause_menu: CanvasLayer = $PauseMenu
 @onready var intro_cutscene: Node3D = $IntroCutscene
@@ -82,6 +83,8 @@ func _on_game_started() -> void:
 func _on_intro_finished() -> void:
 	intro_cutscene.hide()
 	game_world.show()
+	if wilderness_scatter.has_method("scatter"):
+		wilderness_scatter.scatter()
 	_game_started = true
 	player.enable_control()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

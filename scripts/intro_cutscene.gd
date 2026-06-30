@@ -2,6 +2,8 @@ extends Node3D
 
 signal intro_finished
 
+const CABIN_SCENE := preload("res://scenes/airplane_cabin.tscn")
+const ContentOffloaderScript := preload("res://scripts/content_offloader.gd")
 const MOUSE_SENSITIVITY := 0.002
 const MAX_YAW := 1.05
 const MAX_PITCH := 0.62
@@ -39,6 +41,7 @@ const EPILOGUE_LINES: Array[String] = [
 
 var _sun: DirectionalLight3D
 var _sun_shadows_enabled := true
+var _cabin_offloader: Node
 
 var _playing := false
 var _yaw := BASE_YAW - 0.25
@@ -49,6 +52,16 @@ var _shaking := false
 
 func _ready() -> void:
 	_sun = get_parent().get_node_or_null("Sun") as DirectionalLight3D
+	_setup_cabin_offloader()
+
+
+func _setup_cabin_offloader() -> void:
+	_cabin_offloader = ContentOffloaderScript.new()
+	_cabin_offloader.name = "CabinOffloader"
+	_cabin_offloader.content_root = NodePath("AirplaneCabin")
+	_cabin_offloader.reload_scene = CABIN_SCENE
+	_cabin_offloader.replace_entire_root = true
+	call_deferred("add_child", _cabin_offloader)
 
 
 func start_intro() -> void:
@@ -206,4 +219,6 @@ func _finish_intro() -> void:
 	hide()
 	fade_rect.modulate = Color(1, 1, 1, 0)
 	fade_rect.color = Color(0, 0, 0, 0)
+	if _cabin_offloader and not _cabin_offloader.is_offloaded:
+		_cabin_offloader.offload()
 	intro_finished.emit()

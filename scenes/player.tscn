@@ -30,7 +30,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
 [node name="CameraBob" type="Node3D" parent="Head"]
 
-[node name="Camera3D" type="Camera3D" parent="Head/CameraBob"]
+[node name="Camera3D" type="Camera3D" parent="Head/CameraBob" groups=["player_camera"]]
 current = false
 
 [node name="HeldItem" type="Node3D" parent="Head/CameraBob"]
