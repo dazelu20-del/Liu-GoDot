@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://backpackui01"]
+
+[ext_resource type="Script" path="res://scripts/backpack_ui.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 20.0
+content_margin_top = 18.0
+content_margin_right = 20.0
+content_margin_bottom = 18.0
+bg_color = Color(0.06, 0.06, 0.08, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.35, 0.4, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="BackpackUI" type="CanvasLayer"]
+script = ExtResource("1_script")
+
+[node name="Center" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Center/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.9, 0.86, 1)
+theme_override_font_sizes/font_size = 22
+text = "Backpack"
+horizontal_alignment = 1
+
+[node name="BackpackSection" type="VBoxContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BackpackLabel" type="Label" parent="Center/Panel/VBox/BackpackSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.73, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "Storage (6 x 5)"
+
+[node name="BackpackGrid" type="GridContainer" parent="Center/Panel/VBox/BackpackSection"]
+layout_mode = 2
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+columns = 6
+
+[node name="HotbarSection" type="VBoxContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HotbarLabel" type="Label" parent="Center/Panel/VBox/HotbarSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.73, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "Hotbar"
+
+[node name="HotbarRow" type="HBoxContainer" parent="Center/Panel/VBox/HotbarSection"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Hint" type="Label" parent="Center/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.53, 0.5, 1)
+theme_override_font_sizes/font_size = 13
+text = "Drag items between slots  |  B or Esc to close"
+horizontal_alignment = 1

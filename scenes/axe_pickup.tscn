@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://xepickup01"]
+
+[ext_resource type="Script" path="res://scripts/axe_pickup.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://dt408xqjjyuwf" path="res://assets/Starter axe/tactical_axe.glb" id="2_model"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_area"]
+radius = 2.2
+
+[node name="AxePickup" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Model" parent="." instance=ExtResource("2_model")]
+transform = Transform3D(0.00093868416, 0, 0, 0, 0.0009892215, 0, 0, 0, 0.0020871118, 0, 0, 0)
+
+[node name="InteractionArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 1
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+shape = SubResource("SphereShape3D_area")

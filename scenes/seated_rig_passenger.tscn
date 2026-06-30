@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://seatedrig01"]
+
+[ext_resource type="Script" path="res://scripts/seated_rig_passenger.gd" id="1_seated_rig"]
+
+[node name="SeatedRigPassenger" type="Node3D"]
+script = ExtResource("1_seated_rig")
